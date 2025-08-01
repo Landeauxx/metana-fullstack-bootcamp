@@ -1,0 +1,86 @@
+/* Main Panel Grid */
+.main-panel {
+  display: flex;
+  gap: 2rem;
+  padding: 2rem;
+  flex-wrap: wrap;
+}
+
+/* Split layout for task panel and suggestions */
+.dashboard {
+  flex: 2;
+  background-color: #1e1f2b;
+  border-radius: 1rem;
+  padding: 2rem;
+}
+.suggested-panel {
+  flex: 1;
+}
+
+/* Header layout with title and actions */
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+.task-header-left h2 {
+  font-size: 1.5rem;
+  color: #8aff64;
+  margin: 0;
+}
+.task-header-left p {
+  font-size: 0.95rem;
+  color: #ccc;
+  margin: 0.3rem 0 0 0;
+}
+.task-header-right {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+/* Shared Button Style for Actions */
+.action-btn {
+  background-color: #1e1f2b;
+  border: 2px solid #8aff64;
+  color: #8aff64;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.action-btn:hover {
+  background-color: #8aff64;
+  color: #0d0d0d;
+}
+
+/* Task List Grid */
+.task-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.task-card {
+  background-color: #2a2b3d;
+  color: white;
+  padding: 1rem;
+  border-radius: 1rem;
+  flex: 1 1 30%;
+  min-width: 200px;
+  text-decoration: none;
+}
+.task-card h4 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+.task-card p {
+  margin: 0.5rem 0 0;
+  font-size: 0.95rem;
+  color: #ccc;
+}

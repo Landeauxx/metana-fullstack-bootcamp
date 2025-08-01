@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Todo App</title>
+  <link rel="stylesheet" href="Styles/index.css" />
+  <link rel="stylesheet" href="Styles/tasksComponent.css" />
+  <link rel="stylesheet" href="Styles/suggestedTaskComponent.css" />
+  <link rel="stylesheet" href="Styles/taskCreationForm.css" />
+  <link rel="stylesheet" href="Styles/moodSelector.css" />
+  <link rel="stylesheet" href="Styles/loginForm.css" />
+</head>
+<body>
+  <div id="main-app">
+
+    <!-- Top Bar -->
+    <div class="top-bar">
+      <div class="welcome">
+        <p><strong>Welcome</strong><br />Guest</p>
+      </div>
+      <div class="top-actions">
+        <span><strong>Mood:</strong></span>
+        <span class="icon">👤</span>
+        <span class="icon">⚙️</span>
+      </div>
+    </div>
+
+    <!-- Mood Slider -->
+    <section class="mood-selector">
+      <label for="mood-range">How are you feeling today?</label>
+      <input type="range" id="mood-range" name="mood" min="0" max="10" value="5" />
+      <div class="mood-labels">
+        <span>😞</span>
+        <span>😐</span>
+        <span>😊</span>
+      </div>
+    </section>
+
+    <!-- Main Panel -->
+    <div class="main-panel">
+      <!-- Tasks -->
+      <div class="dashboard">
+        <div class="task-header">
+          <div class="task-header-left">
+            <h2>Ready for Today?</h2>
+            <p>You have 3 tasks planned for today</p>
+          </div>
+          <div class="task-header-right">
+            <a href="#addTaskModal" class="action-btn">+ Add Task</a>
+            <button class="action-btn">Complete All</button>
+            <button class="action-btn">Show Completed</button>
+          </div>
+        </div>
+
+        <div class="task-list">
+          <a href="#edit-task-1" class="task-card">
+            <h4>Run!</h4>
+            <p>1:21 PM</p>
+          </a>
+          <a href="#edit-task-2" class="task-card">
+            <h4>Don’t Run</h4>
+            <p>12:34 AM</p>
+          </a>
+          <a href="#edit-task-3" class="task-card">
+            <h4>Bake Brownies</h4>
+            <p>12:09 PM</p>
+          </a>
+        </div>
+      </div>
+
+      <!-- Suggestions -->
+      <section class="suggested-panel">
+        <h3>Suggested tasks</h3>
+        <div class="suggested-card">📚 Read a Book<br><strong>12:43 PM</strong></div>
+        <div class="suggested-card">🧘 Meditation<br><strong>12:43 PM</strong></div>
+      </section>
+    </div>
+
+    <!-- Login Button -->
+    <div class="forms">
+      <a href="#loginModal" class="open-modal-button">Login</a>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+      <div class="modal-content">
+        <a href="#" class="close-button">&times;</a>
+        <h2>Login</h2>
+        <input type="text" placeholder="Username" required />
+        <input type="email" placeholder="Email" required />
+        <input type="password" placeholder="Password" required />
+        <button type="submit">Login</button>
+      </div>
+    </div>
+
+    <!-- Edit Task Modals -->
+    <div id="edit-task-1" class="modal">
+      <div class="modal-content">
+        <a href="#" class="close-button">&times;</a>
+        <h2>Edit Task: Run!</h2>
+        <input type="text" value="Run!" />
+        <input type="time" value="13:21" />
+        <button>Save</button>
+      </div>
+    </div>
+    <div id="edit-task-2" class="modal">
+      <div class="modal-content">
+        <a href="#" class="close-button">&times;</a>
+        <h2>Edit Task: Don’t Run</h2>
+        <input type="text" value="Don’t Run" />
+        <input type="time" value="00:34" />
+        <button>Save</button>
+      </div>
+    </div>
+    <div id="edit-task-3" class="modal">
+      <div class="modal-content">
+        <a href="#" class="close-button">&times;</a>
+        <h2>Edit Task: Bake Brownies</h2>
+        <input type="text" value="Bake Brownies" />
+        <input type="time" value="12:09" />
+        <button>Save</button>
+      </div>
+    </div>
+
+    <!-- Add Task Modal -->
+    <div id="addTaskModal" class="modal">
+      <div class="modal-content">
+        <a href="#" class="close-button">&times;</a>
+        <h2>Add New Task</h2>
+        <input type="text" placeholder="Task Title" required />
+        <input type="time" required />
+        <button type="submit">Add Task</button>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>
