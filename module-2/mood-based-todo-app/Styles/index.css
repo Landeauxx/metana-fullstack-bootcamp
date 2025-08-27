@@ -22,7 +22,7 @@ a {
   justify-content: space-between;
   align-items: center;
   padding: 1.2rem 2rem;
-  background: #1e1e1e; /* keep if you want a darker top strip */
+  background: #1e1e1e;
 }
 
 .welcome p {
@@ -51,9 +51,6 @@ a {
   transition: filter 0.15s ease;
 }
 .chip:hover { filter: brightness(1.08); }
-.mood-chip {}
-.login-chip {}
-
 /* ===== MAIN LAYOUT ===== */
 .main-panel {
   display: grid;
@@ -120,7 +117,7 @@ a {
 .task-card h4 { margin: 0; }
 .task-card p  { margin: 0; font-size: 0.85rem; color: #ccc; }
 
-/* ===== SUGGESTIONS (RIGHT) ===== */
+/* ===== SUGGESTIONS ===== */
 .suggested-panel {
   background: #252739;
   padding: 1.5rem;
