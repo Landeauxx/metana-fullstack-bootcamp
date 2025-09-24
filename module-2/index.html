@@ -4,14 +4,19 @@
   <meta charset="UTF-8" />
   <title>Todo App</title>
   <link rel="stylesheet" href="Styles/index.css" />
-  <link rel="stylesheet" href="Styles/tasksComponent.css" />
+  <link rel="stylesheet" href="Styles/taskComponent.css" />
   <link rel="stylesheet" href="Styles/suggestedTaskComponent.css" />
   <link rel="stylesheet" href="Styles/taskCreationForm.css" />
-  <link rel="stylesheet" href="Styles/moodSelecter.css" />
+  <link rel="stylesheet" href="Styles/moodSelector.css" />
   <link rel="stylesheet" href="Styles/loginForm.css" />
 </head>
 <body>
   <div id="main-app">
+
+    <!-- Hidden task toggles -->
+    <input type="checkbox" id="t1-done" class="task-toggle" />
+    <input type="checkbox" id="t2-done" class="task-toggle" />
+    <input type="checkbox" id="t3-done" class="task-toggle" />
 
     <!-- Top Bar -->
     <header class="top-bar">
@@ -23,6 +28,8 @@
           Mood: <span class="mood-emoji">😐</span>
         </a>
         <a id="login-chip" class="chip login-chip" href="#login-modal" aria-label="Open login">Login</a>
+        <!-- Weather details button -->
+        <a id="weather-chip" class="chip weather-chip" href="#weather-modal" aria-label="Open weather details">Weather</a>
       </nav>
     </header>
 
@@ -37,24 +44,46 @@
           </div>
           <div class="task-header-right">
             <a href="#addTaskModal" class="action-btn">+ Add Task</a>
-            <button class="action-btn">Complete All</button>
-            <button class="action-btn">Show Completed</button>
+            <button class="action-btn" disabled title="(Static UI)">Complete All</button>
+            <a class="action-btn" href="#completed">Show Completed</a>
           </div>
         </div>
 
-        <div class="task-list">
-          <a href="#edit-task-1" class="task-card">
-            <h4>Run!</h4>
-            <p>1:21 PM</p>
-          </a>
-          <a href="#edit-task-2" class="task-card">
-            <h4>Don’t Run</h4>
-            <p>12:34 AM</p>
-          </a>
-          <a href="#edit-task-3" class="task-card">
-            <h4>Bake Brownies</h4>
-            <p>12:09 PM</p>
-          </a>
+        <!-- ACTIVE TASKS -->
+        <div class="task-list active-list">
+          <div class="task-card task-1">
+            <div>
+              <h4>Run!</h4>
+              <p>1:21 PM</p>
+            </div>
+            <div class="task-actions">
+              <a href="#edit-task-1" class="ghost-link">Edit</a>
+              <!-- Single-task complete -->
+              <label for="t1-done" class="complete-btn" title="Mark complete">Complete</label>
+            </div>
+          </div>
+
+          <div class="task-card task-2">
+            <div>
+              <h4>Don’t Run</h4>
+              <p>12:34 AM</p>
+            </div>
+            <div class="task-actions">
+              <a href="#edit-task-2" class="ghost-link">Edit</a>
+              <label for="t2-done" class="complete-btn" title="Mark complete">Complete</label>
+            </div>
+          </div>
+
+          <div class="task-card task-3">
+            <div>
+              <h4>Bake Brownies</h4>
+              <p>12:09 PM</p>
+            </div>
+            <div class="task-actions">
+              <a href="#edit-task-3" class="ghost-link">Edit</a>
+              <label for="t3-done" class="complete-btn" title="Mark complete">Complete</label>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -65,6 +94,37 @@
         <div class="suggested-card">🧘 Meditation<br><strong>10:45 AM</strong></div>
       </section>
     </div>
+
+    <!-- COMPLETED TASKS -->
+    <section id="completed" class="completed-section">
+      <h3>Completed</h3>
+      <div class="completed-list">
+        <!-- These mirror the active tasks but only show when their toggle is checked -->
+        <div class="task-card done task-1">
+          <div>
+            <h4>Run!</h4>
+            <p>Completed</p>
+          </div>
+          <span class="done-badge">✓</span>
+        </div>
+
+        <div class="task-card done task-2">
+          <div>
+            <h4>Don’t Run</h4>
+            <p>Completed</p>
+          </div>
+          <span class="done-badge">✓</span>
+        </div>
+
+        <div class="task-card done task-3">
+          <div>
+            <h4>Bake Brownies</h4>
+            <p>Completed</p>
+          </div>
+          <span class="done-badge">✓</span>
+        </div>
+      </div>
+    </section>
 
     <!-- Login Modal -->
     <div id="login-modal" class="modal" aria-modal="true" role="dialog">
@@ -86,6 +146,32 @@
 
           <button type="submit" class="primary-btn">Login</button>
         </form>
+      </div>
+    </div>
+
+    <!-- Weather Modal (dummy data) -->
+    <div id="weather-modal" class="modal" aria-modal="true" role="dialog">
+      <div class="modal-content weather-modal">
+        <a href="#" class="modal-close" aria-label="Close">×</a>
+        <h3 class="weather-title">Weather — Today</h3>
+        <div class="weather-grid">
+          <div class="weather-card">
+            <div class="wx-big">72°</div>
+            <div class="wx-small">Feels 74° · Partly Cloudy</div>
+          </div>
+          <div class="weather-card">
+            <strong>Humidity</strong>
+            <div>58%</div>
+          </div>
+          <div class="weather-card">
+            <strong>Wind</strong>
+            <div>8 mph NE</div>
+          </div>
+          <div class="weather-card">
+            <strong>Precip</strong>
+            <div>10% chance</div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -125,9 +211,13 @@
       <div class="modal-content">
         <a href="#" class="modal-close" aria-label="Close">×</a>
         <h2>Add New Task</h2>
-        <input type="text" placeholder="Task Title" required />
-        <input type="time" required />
-        <button type="submit" class="primary-btn">Add Task</button>
+        <form action="#" method="post" class="add-task-form">
+          <input type="text" placeholder="Task Title" required />
+          <input type="time" required />
+          <!-- Duration field -->
+          <input type="text" placeholder="Duration (e.g., 45 min)" />
+          <button type="submit" class="primary-btn">Add Task</button>
+        </form>
       </div>
     </div>
 
@@ -154,13 +244,27 @@
       </div>
     </div>
 
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <span>© 2025 Mood To-Do App</span>
+        <nav class="footer-nav">
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+          <a href="#weather-modal">Weather</a>
+        </nav>
+      </div>
+    </footer>
+
   </div>
 
+  <!-- script for mood slider -->
   <script>
     (function () {
       const range = document.querySelector('.mood-range');
       const chipEmoji = document.querySelector('#mood-chip .mood-emoji');
       const saveBtn = document.getElementById('mood-save');
+      if (!range || !chipEmoji || !saveBtn) return;
 
       const emojiFor = (v) => {
         const p = (v - range.min) * 100 / (range.max - range.min);
@@ -177,9 +281,8 @@
       range.addEventListener('input', syncFill);
       syncFill();
 
-      saveBtn.addEventListener('click', (e) => {
+      saveBtn.addEventListener('click', () => {
         chipEmoji.textContent = emojiFor(range.value);
-
         if (location.hash === '#mood-modal') {
           history.pushState('', document.title, window.location.pathname + window.location.search);
         }

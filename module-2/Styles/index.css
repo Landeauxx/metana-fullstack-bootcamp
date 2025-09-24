@@ -1,0 +1,307 @@
+/* ===== BASE ===== */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #1b1c2e;
+  color: #fff;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+#main-app {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ===== TOP BAR ===== */
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2rem 2rem;
+  background: #1e1e1e;
+}
+
+.welcome p {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.top-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: #2b2d3f;
+  padding: 0.55rem 1rem;
+  border-radius: 999px;
+  color: #eaeaf2;
+  font-weight: 600;
+  border: 1px solid #3a3d55;
+  box-shadow: 0 2px 0 #1b1c2e inset;
+  transition: filter 0.15s ease;
+}
+.chip:hover { filter: brightness(1.08); }
+/* ===== MAIN LAYOUT ===== */
+.main-panel {
+  display: grid;
+  grid-template-columns: 2fr 1fr; /* tasks left, suggestions right */
+  gap: 2rem;
+  padding: 0 2rem 2rem;
+}
+
+/* ===== TASKS (LEFT) ===== */
+.dashboard {
+  background: #252739;
+  padding: 1.5rem;
+  border-radius: 16px;
+}
+
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.task-header-left h2 {
+  color: #b4ff00;
+  margin: 0;
+}
+.task-header-left p {
+  margin: 0.2rem 0 0;
+  color: #ccc;
+}
+
+.task-header-right {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.action-btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  background: #b4ff00;
+  color: #111425;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.action-btn:hover { filter: brightness(1.05); }
+
+.task-list {
+  margin-top: 1rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.task-card {
+  background: #2f3047;
+  padding: 1rem;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.task-card h4 { margin: 0; }
+.task-card p  { margin: 0; font-size: 0.85rem; color: #ccc; }
+
+/* ===== SUGGESTIONS ===== */
+.suggested-panel {
+  background: #252739;
+  padding: 1.5rem;
+  border-radius: 16px;
+}
+.suggested-panel h3 {
+  margin-top: 0;
+  color: #b4ff00;
+}
+.suggested-card {
+  background: #2f3047;
+  padding: 1rem;
+  border-radius: 10px;
+  margin-top: 1rem;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+  .main-panel { grid-template-columns: 1fr; }
+}
+/* ===== SINGLE TASK COMPLETE ===== */
+.task-toggle {
+  position: absolute;
+  left: -9999px;
+}
+
+/* Hide completed clones by default */
+.completed-section .task-card.done { display: none; }
+
+/* When a task is checked "done", hide it from Active and show it in Completed */
+#t1-done:checked ~ .main-panel .active-list .task-1,
+#t2-done:checked ~ .main-panel .active-list .task-2,
+#t3-done:checked ~ .main-panel .active-list .task-3 { display: none; }
+
+#t1-done:checked ~ .completed-section .task-1,
+#t2-done:checked ~ .completed-section .task-2,
+#t3-done:checked ~ .completed-section .task-3 { display: flex; }
+
+/* Action area inside task cards */
+.task-actions {
+  display: flex;
+  gap: .6rem;
+  align-items: center;
+}
+.ghost-link { color: #cfd3e1; font-size: 0.9rem; }
+.ghost-link:hover { text-decoration: underline; }
+
+/* Complete button */
+.complete-btn {
+  padding: 0.4rem 0.8rem;
+  border-radius: 8px;
+  border: 1px solid #3a3d55;
+  background: #2b2d3f;
+  color: #eaeaf2;
+  cursor: pointer;
+  font-weight: 600;
+  transition: filter .15s ease, border-color .15s ease;
+}
+.complete-btn:hover { filter: brightness(1.08); border-color: #b4ff00; }
+
+/* ===== COMPLETED SECTION ===== */
+.completed-section {
+  margin: 1.5rem 2rem 2.5rem;
+  background: #252739;
+  border-radius: 16px;
+  padding: 1.25rem;
+  border: 1px solid #3a3d55;
+}
+.completed-section h3 {
+  margin: 0 0 1rem;
+  color: #b4ff00;
+}
+.completed-list {
+  display: grid;
+  gap: 1rem;
+}
+.task-card.done {
+  background: #2f3047;
+  position: relative;
+}
+.task-card.done h4 {
+  margin: 0;
+  text-decoration: line-through;
+  opacity: 0.9;
+}
+.done-badge {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: #b4ff00;
+  color: #111425;
+  font-weight: 800;
+}
+
+/* ===== WEATHER MODAL ===== */
+.weather-modal .weather-title {
+  margin-top: 0;
+  color: #b4ff00;
+}
+.weather-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: .75rem;
+}
+.weather-card {
+  background: #2f3047;
+  border-radius: 10px;
+  padding: 1rem;
+  text-align: center;
+}
+.wx-big { font-size: 2rem; font-weight: 800; }
+.wx-small { color: #cfd3e1; margin-top: .25rem; }
+
+@media (max-width: 720px) {
+  .weather-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Weather chip */
+.weather-chip { box-shadow: 0 2px 0 #15202b inset; }
+
+/* ===== FOOTER ===== */
+.site-footer {
+  border-top: 1px solid #3a3d55;
+  background: #1e1e1e;
+  margin-top: 2rem;
+}
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  color: #cfd3e1;
+}
+.footer-nav { display: flex; gap: 1rem; }
+.footer-nav a {
+  color: #eaeaf2;
+  font-weight: 600;
+}
+.footer-nav a:hover { text-decoration: underline; }
+
+/* ===== Modal ===== */
+.modal:target .modal-content { outline: none; }
+.add-task-form input[type="text"]::placeholder { color: #b9bfd6; }
+/* Weather modal sizing */
+.weather-modal {
+  max-width: 500px;       /* keeps it from stretching too wide */
+  margin: 0 auto;         /* centers the modal */
+}
+
+.weather-grid {
+  display: flex;
+  flex-wrap: wrap;        
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+.weather-card {
+  flex: 1 1 100px;        
+  max-width: 120px;       /* prevents overflow */
+  background: #2f3047;
+  border-radius: 10px;
+  padding: 0.75rem;
+  text-align: center;
+  box-sizing: border-box;
+}
+/* Ensure all primary buttons (Login, Save Mood, Add Task, etc.) share the same green */
+.primary-btn {
+  background: #b4ff00;
+  color: #111425;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  padding: 0.6rem 1.2rem;
+  cursor: pointer;
+  display: inline-block;
+  text-align: center;
+  transition: filter 0.15s ease;
+}
+
+.primary-btn:hover {
+  filter: brightness(1.05);
+}
