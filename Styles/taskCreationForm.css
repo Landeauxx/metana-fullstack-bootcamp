@@ -1,0 +1,22 @@
+/* Add / Edit Task modals share a layout */
+#addTaskModal .modal-content,
+#editTaskModal .modal-content{
+  display:grid;
+  gap:.65rem;
+}
+
+#addTaskModal input,
+#editTaskModal input{
+  width:100%;
+  padding:.65rem .75rem;
+  border-radius:10px;
+  border:1px solid var(--line);
+  background:#171827;
+  color:var(--ink);
+}
+
+#addTaskModal .primary-btn,
+#editTaskModal .primary-btn{
+  margin-top:.25rem;
+  width:fit-content;
+}

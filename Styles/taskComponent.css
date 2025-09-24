@@ -1,0 +1,33 @@
+/* Tasks panel & cards */
+.task-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:1rem;
+  margin-bottom:1rem;
+}
+.task-header h2{ margin:0 }
+.task-header p{ margin:.25rem 0 0; color:var(--ink-muted) }
+
+.task-list{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:.75rem;
+}
+
+.task-card{
+  background:#2b2d3f;
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:.9rem 1rem;
+}
+.task-card h4{
+  margin:0 0 .25rem;
+  font-size:1.05rem;
+}
+.task-card p{ margin:.15rem 0; color:var(--ink-dim) }
+
+.task-card .action-btn{
+  padding:.45rem .75rem;
+  font-size:.9rem;
+}
