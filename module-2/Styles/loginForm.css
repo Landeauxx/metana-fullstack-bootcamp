@@ -1,0 +1,110 @@
+/* Modal Wrapper */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Activate modal via anchor */
+.modal:target {
+  display: flex;
+}
+
+/* Modal Content Box */
+.modal-content {
+  background-color: #1e1f2b;
+  padding: 2rem;
+  border-radius: 12px;
+  color: #fff;
+  width: 320px;
+  max-width: 90%;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Close Button */
+.close-button {
+  position: absolute;
+  top: 0.75rem;
+  right: 1rem;
+  font-size: 1.5rem;
+  text-decoration: none;
+  color: #fff;
+}
+
+/* Form Elements Inside Modal */
+.modal-content h2 {
+  margin: 0;
+  text-align: center;
+}
+
+.modal-content input,
+.modal-content button {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: none;
+  box-sizing: border-box;
+}
+
+.modal-content input {
+  background-color: #2a2b3d;
+  color: #fff;
+}
+
+.modal-content input::placeholder {
+  color: #aaa;
+}
+
+.modal-content button {
+  background-color: #8aff64;
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.modal-content button:hover {
+  background-color: #aaff77;
+}
+
+/* Static login container for full-screen or separate login page */
+.login-container {
+  background-color: #1e1f2b;
+  color: #fff;
+  padding: 2rem;
+  border-radius: 1rem;
+  max-width: 400px;
+  margin: auto;
+}
+.login-container input {
+  width: 100%;
+  padding: 0.75rem;
+  margin: 0.5rem 0;
+  border-radius: 0.5rem;
+  border: none;
+  font-size: 1rem;
+  background-color: #2a2b3d;
+  color: #fff;
+}
+.login-container input::placeholder {
+  color: #aaa;
+}
+.login-btn {
+  background-color: #8aff64;
+  color: #000;
+  font-weight: bold;
+  padding: 0.75rem;
+  width: 100%;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}

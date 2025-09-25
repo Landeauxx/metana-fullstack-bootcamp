@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Todo App</title>
+  <link rel="stylesheet" href="Styles/index.css" />
+  <link rel="stylesheet" href="Styles/taskComponent.css" />
+  <link rel="stylesheet" href="Styles/suggestedTaskComponent.css" />
+  <link rel="stylesheet" href="Styles/taskCreationForm.css" />
+  <link rel="stylesheet" href="Styles/moodSelector.css" />
+  <link rel="stylesheet" href="Styles/loginForm.css" />
+</head>
+<body>
+  <div id="main-app">
+
+    <!-- Hidden task toggles -->
+    <input type="checkbox" id="t1-done" class="task-toggle" />
+    <input type="checkbox" id="t2-done" class="task-toggle" />
+    <input type="checkbox" id="t3-done" class="task-toggle" />
+
+    <!-- Top Bar -->
+    <header class="top-bar">
+      <div class="welcome">
+        <p><strong>Welcome</strong><br />Guest</p>
+      </div>
+      <nav class="top-actions">
+        <a id="mood-chip" class="chip mood-chip" href="#mood-modal" aria-label="Open mood selector">
+          Mood: <span class="mood-emoji">😐</span>
+        </a>
+        <a id="login-chip" class="chip login-chip" href="#login-modal" aria-label="Open login">Login</a>
+        <!-- Weather details button -->
+        <a id="weather-chip" class="chip weather-chip" href="#weather-modal" aria-label="Open weather details">Weather</a>
+      </nav>
+    </header>
+
+    <!-- Main Panel -->
+    <div class="main-panel">
+      <!-- Tasks -->
+      <section class="dashboard">
+        <div class="task-header">
+          <div class="task-header-left">
+            <h2>Ready for Today?</h2>
+            <p>You have 3 tasks planned for today</p>
+          </div>
+          <div class="task-header-right">
+            <a href="#addTaskModal" class="action-btn">+ Add Task</a>
+            <button class="action-btn" disabled title="(Static UI)">Complete All</button>
+            <a class="action-btn" href="#completed">Show Completed</a>
+          </div>
+        </div>
+
+        <!-- ACTIVE TASKS -->
+        <div class="task-list active-list">
+          <div class="task-card task-1">
+            <div>
+              <h4>Run!</h4>
+              <p>1:21 PM</p>
+            </div>
+            <div class="task-actions">
+              <a href="#edit-task-1" class="ghost-link">Edit</a>
+              <!-- Single-task complete -->
+              <label for="t1-done" class="complete-btn" title="Mark complete">Complete</label>
+            </div>
+          </div>
+
+          <div class="task-card task-2">
+            <div>
+              <h4>Don’t Run</h4>
+              <p>12:34 AM</p>
+            </div>
+            <div class="task-actions">
+              <a href="#edit-task-2" class="ghost-link">Edit</a>
+              <label for="t2-done" class="complete-btn" title="Mark complete">Complete</label>
+            </div>
+          </div>
+
+          <div class="task-card task-3">
+            <div>
+              <h4>Bake Brownies</h4>
+              <p>12:09 PM</p>
+            </div>
+            <div class="task-actions">
+              <a href="#edit-task-3" class="ghost-link">Edit</a>
+              <label for="t3-done" class="complete-btn" title="Mark complete">Complete</label>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Suggestions -->
+      <section class="suggested-panel">
+        <h3>Suggested tasks</h3>
+        <div class="suggested-card">📚 Read a Book<br><strong>12:00 PM</strong></div>
+        <div class="suggested-card">🧘 Meditation<br><strong>10:45 AM</strong></div>
+      </section>
+    </div>
+
+    <!-- COMPLETED TASKS -->
+    <section id="completed" class="completed-section">
+      <h3>Completed</h3>
+      <div class="completed-list">
+        <!-- These mirror the active tasks but only show when their toggle is checked -->
+        <div class="task-card done task-1">
+          <div>
+            <h4>Run!</h4>
+            <p>Completed</p>
+          </div>
+          <span class="done-badge">✓</span>
+        </div>
+
+        <div class="task-card done task-2">
+          <div>
+            <h4>Don’t Run</h4>
+            <p>Completed</p>
+          </div>
+          <span class="done-badge">✓</span>
+        </div>
+
+        <div class="task-card done task-3">
+          <div>
+            <h4>Bake Brownies</h4>
+            <p>Completed</p>
+          </div>
+          <span class="done-badge">✓</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="modal" aria-modal="true" role="dialog">
+      <div class="modal-content login-modal">
+        <a href="#" class="modal-close" aria-label="Close">×</a>
+
+        <h3 class="login-title">Welcome Back!</h3>
+        <p class="login-sub">Please enter your details to login</p>
+
+        <form class="login-form" action="#" method="post">
+          <label class="visually-hidden" for="login-name">Name</label>
+          <input id="login-name" type="text" placeholder="Name" required>
+
+          <label class="visually-hidden" for="login-email">Email</label>
+          <input id="login-email" type="email" placeholder="Email" required>
+
+          <label class="visually-hidden" for="login-password">Password</label>
+          <input id="login-password" type="password" placeholder="Password" required>
+
+          <button type="submit" class="primary-btn">Login</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Weather Modal (dummy data) -->
+    <div id="weather-modal" class="modal" aria-modal="true" role="dialog">
+      <div class="modal-content weather-modal">
+        <a href="#" class="modal-close" aria-label="Close">×</a>
+        <h3 class="weather-title">Weather — Today</h3>
+        <div class="weather-grid">
+          <div class="weather-card">
+            <div class="wx-big">72°</div>
+            <div class="wx-small">Feels 74° · Partly Cloudy</div>
+          </div>
+          <div class="weather-card">
+            <strong>Humidity</strong>
+            <div>58%</div>
+          </div>
+          <div class="weather-card">
+            <strong>Wind</strong>
+            <div>8 mph NE</div>
+          </div>
+          <div class="weather-card">
+            <strong>Precip</strong>
+            <div>10% chance</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Edit Task Modals -->
+    <div id="edit-task-1" class="modal" aria-modal="true" role="dialog">
+      <div class="modal-content">
+        <a href="#" class="modal-close" aria-label="Close">×</a>
+        <h2>Edit Task: Run!</h2>
+        <input type="text" value="Run!" />
+        <input type="time" value="13:21" />
+        <button class="primary-btn">Save</button>
+      </div>
+    </div>
+
+    <div id="edit-task-2" class="modal" aria-modal="true" role="dialog">
+      <div class="modal-content">
+        <a href="#" class="modal-close" aria-label="Close">×</a>
+        <h2>Edit Task: Don’t Run</h2>
+        <input type="text" value="Don’t Run" />
+        <input type="time" value="00:34" />
+        <button class="primary-btn">Save</button>
+      </div>
+    </div>
+
+    <div id="edit-task-3" class="modal" aria-modal="true" role="dialog">
+      <div class="modal-content">
+        <a href="#" class="modal-close" aria-label="Close">×</a>
+        <h2>Edit Task: Bake Brownies</h2>
+        <input type="text" value="Bake Brownies" />
+        <input type="time" value="12:09" />
+        <button class="primary-btn">Save</button>
+      </div>
+    </div>
+
+    <!-- Add Task Modal -->
+    <div id="addTaskModal" class="modal" aria-modal="true" role="dialog">
+      <div class="modal-content">
+        <a href="#" class="modal-close" aria-label="Close">×</a>
+        <h2>Add New Task</h2>
+        <form action="#" method="post" class="add-task-form">
+          <input type="text" placeholder="Task Title" required />
+          <input type="time" required />
+          <!-- Duration field -->
+          <input type="text" placeholder="Duration (e.g., 45 min)" />
+          <button type="submit" class="primary-btn">Add Task</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Mood Slider Modal -->
+    <div id="mood-modal" class="modal" aria-modal="true" role="dialog">
+      <div class="modal-content mood-modal">
+        <a href="#" class="modal-close" aria-label="Close">×</a>
+
+        <div class="modal-head">
+          <h3>How are you feeling?</h3>
+        </div>
+
+        <div class="mood-guides" aria-hidden="true">
+          <span title="Sad">😞</span>
+          <span title="Neutral">😐</span>
+          <span title="Happy">🙂</span>
+        </div>
+
+        <div class="mood-slider-wrap">
+          <input type="range" min="0" max="100" value="60" class="mood-range" style="--val:60%">
+        </div>
+
+        <a id="mood-save" href="#" class="primary-btn">Save Mood</a>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <span>© 2025 Mood To-Do App</span>
+        <nav class="footer-nav">
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+          <a href="#weather-modal">Weather</a>
+        </nav>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- script for mood slider -->
+  <script>
+    (function () {
+      const range = document.querySelector('.mood-range');
+      const chipEmoji = document.querySelector('#mood-chip .mood-emoji');
+      const saveBtn = document.getElementById('mood-save');
+      if (!range || !chipEmoji || !saveBtn) return;
+
+      const emojiFor = (v) => {
+        const p = (v - range.min) * 100 / (range.max - range.min);
+        if (p <= 33) return '😞';
+        if (p <= 66) return '😐';
+        return '🙂';
+      };
+
+      const syncFill = () => {
+        const p = (range.value - range.min) * 100 / (range.max - range.min);
+        range.style.setProperty('--val', p + '%');
+      };
+
+      range.addEventListener('input', syncFill);
+      syncFill();
+
+      saveBtn.addEventListener('click', () => {
+        chipEmoji.textContent = emojiFor(range.value);
+        if (location.hash === '#mood-modal') {
+          history.pushState('', document.title, window.location.pathname + window.location.search);
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
