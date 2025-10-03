@@ -1,0 +1,20 @@
+/* Suggested tasks — richer layout + mode select */
+.suggested-card{
+  display:flex; align-items:center; justify-content:space-between; gap:1rem;
+  background:var(--panel-2); border:1px solid var(--line);
+  border-radius:12px; padding:1rem 1.25rem; margin:.75rem 0;
+}
+.sugg-left .sugg-title{ font-weight:700; color:var(--brand); display:flex; gap:.5rem; align-items:center; }
+.sugg-left .sugg-sub{ color:var(--ink-muted); font-size:.9rem; margin-top:.15rem; }
+.sugg-left .sugg-time{ margin-top:.35rem; color:var(--ink); }
+.sugg-right{ text-align:right; min-width:160px; }
+.sugg-reason-icon{ font-size:1.35rem; line-height:1; }
+.sugg-reason-label{ color:var(--ink-muted); font-size:.85rem; margin-top:.25rem; }
+.sugg-reason-value{ color:var(--brand); font-weight:700; margin-top:.1rem; }
+.sugg-ok{ color:var(--brand); margin-top:.15rem; font-weight:700; }
+
+.sugg-mode select{
+  background:#2b2d3f; color:#eaeaf2; border:1px solid var(--line);
+  border-radius:10px; padding:.35rem .6rem; font-weight:600;
+}
+.sugg-mode select:hover{ border-color:var(--brand); }

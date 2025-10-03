@@ -1,0 +1,21 @@
+<div id="mood-modal" class="modal" aria-modal="true" role="dialog">
+  <div class="modal-content mood-modal">
+    <a href="#" class="modal-close" aria-label="Close">×</a>
+
+    <div class="modal-head">
+      <h3>How are you feeling?</h3>
+    </div>
+
+    <div class="mood-guides" aria-hidden="true" style="gap:1.25rem">
+      <span title="Sad">😞</span>
+      <span title="Neutral">😐</span>
+      <span title="Happy">🙂</span>
+    </div>
+
+    <div class="mood-slider-wrap">
+      <input type="range" min="0" max="100" value="60" class="mood-range" style="--val:60%">
+    </div>
+
+    <a id="mood-save" href="#" class="primary-btn">Save Mood</a>
+  </div>
+</div>

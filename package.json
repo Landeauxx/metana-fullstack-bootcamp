@@ -1,0 +1,20 @@
+{
+  "name": "todo-app-server",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Express server for Mood-based To-Do App (serves module-3 and proxies WeatherAPI)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.6.1",
+    "express": "^4.21.2",
+    "express-handlebars": "^8.0.3"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

@@ -1,0 +1,26 @@
+{{!< layouts/main}}
+
+<div class="main-panel">
+  <section class="dashboard">
+    <div class="task-header">
+      <div class="task-header-left">
+        <h2>Ready for Today?</h2>
+        <p>You have tasks planned for today</p>
+      </div>
+      <div class="task-header-right">
+        <a href="#addTaskModal" class="action-btn">+ Add Task</a>
+        <button class="action-btn" id="complete-all-btn">Complete All</button>
+        <button class="action-btn" id="toggle-completed-btn">Show Completed</button>
+      </div>
+    </div>
+
+    <div class="task-list"></div>
+
+    <div class="completed-tasks" id="completed-section" style="display:none;">
+      <h3>Completed Tasks</h3>
+      <div class="completed-list"></div>
+    </div>
+  </section>
+
+  {{> suggestedPanel}}
+</div>

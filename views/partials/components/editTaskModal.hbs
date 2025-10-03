@@ -1,0 +1,23 @@
+<div id="editTaskModal" class="modal" aria-modal="true" role="dialog">
+  <div class="modal-content">
+    <a href="#" class="modal-close" aria-label="Close">×</a>
+    <h2>Edit Task</h2>
+
+    <label class="visually-hidden" for="edit-title">Task Title</label>
+    <input type="text" id="edit-title" placeholder="Task Title" required />
+
+    <label class="visually-hidden" for="edit-time">Time</label>
+    <input type="time" id="edit-time" required />
+
+    <label class="visually-hidden" for="edit-duration">Duration (minutes)</label>
+    <input
+      type="number"
+      id="edit-duration"
+      placeholder="Duration (minutes)"
+      min="1"
+      required
+    />
+
+    <button type="submit" class="primary-btn">Save</button>
+  </div>
+</div>

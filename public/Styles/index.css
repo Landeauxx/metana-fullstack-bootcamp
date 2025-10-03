@@ -129,7 +129,6 @@ footer{
 .footer-links a:hover{ color:var(--brand) }
 
 /* ===== Modals + Overlay ===== */
-/* Overlay sits below modal, click to close when active */
 .modal-overlay{
   position:fixed;
   inset:0;
@@ -144,17 +143,15 @@ footer{
   pointer-events:auto;
 }
 
-/* Modal container covers viewport but doesn't eat clicks itself */
 .modal{
   position:fixed;
   inset:0;
-  z-index:40;            /* above overlay */
+  z-index:40;
   display:none;
-  pointer-events:none;   /* let overlay receive outside clicks */
+  pointer-events:none; 
 }
 .modal.active{ display:block }
 
-/* The dialog is the interactive part */
 .modal .modal-content{
   background:#212234;
   color:var(--ink);
@@ -165,8 +162,8 @@ footer{
   width:clamp(300px, 90vw, 520px);
   margin:10vh auto 0;
   position:relative;
-  z-index:41;            /* ensure content is clickable */
-  pointer-events:auto;   /* allow interaction inside dialog */
+  z-index:41;
+  pointer-events:auto;
 }
 
 .modal-close{
@@ -186,7 +183,7 @@ footer{
   white-space:nowrap;border:0;
 }
 
-/* ===== Weather bits ===== */
+/* ===== Weather ===== */
 .weather-modal{ max-width:400px }
 .weather-info{
   display:grid;

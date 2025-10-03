@@ -1,5 +1,4 @@
-// module-3/Scripts/index.js
-
+// Scripts/index.js
 document.addEventListener('DOMContentLoaded', () => {
   console.log('index.js loaded');
 
@@ -57,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
   modalOverlay?.addEventListener('click', closeAllModals);
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeAllModals(); });
 
-  // Open if URL already has a hash (e.g., ...#mood-modal)
+  // Open if URL already has a hash
   function openFromHash() {
     const id = location.hash.replace('#', '');
     if (!id) return;
@@ -97,11 +96,87 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ====== Weather modal (explicit buttons still OK) ======
+  // ====== Weather ======
   const weatherChip = document.getElementById('weather-chip');
-  const weatherCloseBtn = document.querySelector('#weather-modal .primary-btn');
-  weatherChip?.addEventListener('click', e => { e.preventDefault(); openModal('weather-modal'); });
-  weatherCloseBtn?.addEventListener('click', () => closeModal('weather-modal'));
+
+  const API_BASES = [
+    'http://localhost:3000',
+    'http://127.0.0.1:3000',
+    'http://localhost:3001',
+    'http://127.0.0.1:3001'
+  ];
+
+  function setText(sel, text){ const el=document.querySelector(sel); if(el) el.textContent=text; }
+  function setLoading(on=true){ const v=on?'Loading…':'—'; ['#weather-temp','#weather-condition','#weather-humidity','#weather-wind'].forEach(s=>setText(s,v)); }
+  function cachedWeatherIsFresh(c){ return !!c && (Date.now()-c.time) < 10*60*1000; }
+
+  function getCoords(){
+    return new Promise(res=>{
+      if(!navigator.geolocation) return res(null);
+      navigator.geolocation.getCurrentPosition(
+        p=>res({lat:p.coords.latitude, lon:p.coords.longitude}),
+        ()=>res(null),
+        {timeout:8000, maximumAge:60000}
+      );
+    });
+  }
+
+  async function fetchFrom(base, coords){
+    let url = `${base}/api/weather`;
+    if (coords?.lat && coords?.lon) {
+      const p = new URLSearchParams({ lat: coords.lat, lon: coords.lon });
+      url += `?${p.toString()}`;
+    } else {
+      url += `?q=auto:ip`; // explicit fallback when GPS is off/denied
+    }
+    const r = await fetch(url, { headers:{ Accept:'application/json' } });
+    if (!r.ok) throw new Error(`Weather proxy failed: ${r.status}`);
+    return r.json();
+  }
+
+  async function fetchWeather(coords){
+    let lastErr;
+    for (const base of API_BASES) {
+      try { return await fetchFrom(base, coords); }
+      catch (e) { lastErr = e; }
+    }
+    throw lastErr || new Error('All weather endpoints failed');
+  }
+
+  function renderWeather(d){
+    const c = d?.current;
+    if(!c) throw new Error('Weather payload missing "current"');
+    setText('#weather-temp', `${Math.round(c.temp_f)}°F`);
+    setText('#weather-condition', c.condition?.text ?? '—');
+    setText('#weather-humidity', `${c.humidity}%`);
+    setText('#weather-wind', `${Math.round(c.wind_mph)} mph`);
+  }
+
+  async function initWeather({force=false}={}){
+    try{
+      const cache = JSON.parse(localStorage.getItem('weatherCache')||'null');
+      if(!force && cachedWeatherIsFresh(cache)){ renderWeather(cache.data); return; }
+      setLoading(true);
+      const coords = await getCoords();                 // may be null if blocked
+      const data = await fetchWeather(coords);          // server handles q=auto:ip
+      renderWeather(data);
+      localStorage.setItem('weatherCache', JSON.stringify({time:Date.now(), data}));
+    }catch(err){
+      console.error('[weather]', err);
+      setText('#weather-temp','—'); setText('#weather-condition','Unavailable');
+      setText('#weather-humidity','—'); setText('#weather-wind','—');
+    }
+  }
+
+  // Open modal + refresh 
+  weatherChip?.addEventListener('click', e => {
+    e.preventDefault();
+    initWeather();
+    openModal('weather-modal');
+  });
+
+  // Auto-fetch once on startup
+  initWeather();
 
   // ====== Tasks ======
   const taskList = document.querySelector('.task-list');
