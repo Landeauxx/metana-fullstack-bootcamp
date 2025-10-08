@@ -1,0 +1,26 @@
+{
+  "name": "metena-module-5-backend",
+  "version": "1.0.0",
+  "description": "Express/MongoDB backend for Metena Module 5",
+  "type": "module",
+  "main": "index.js", 
+  "scripts": {
+  "dev": "nodemon index.js",
+  "start": "node index.js",
+  "db:seed": "node scripts/seedDb.js",
+  "test": "echo \"no tests\" && exit 0"
+} 
+  ,"keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "mongoose": "^8.19.1",
+    "morgan": "^1.10.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
