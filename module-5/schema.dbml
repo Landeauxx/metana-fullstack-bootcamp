@@ -1,0 +1,18 @@
+Table Departments {
+  Dept_ID int [pk, increment]
+  Dept_Name varchar(100)
+}
+
+Table Employees {
+  Emp_ID int [pk, increment]
+  First_Name varchar(50)
+  Last_Name varchar(50)
+  Dept_ID int [ref: > Departments.Dept_ID]
+  Job_Title varchar(100)
+}
+
+Table Salaries {
+  Salary_ID int [pk, increment]
+  Emp_ID int [ref: > Employees.Emp_ID]
+  Amount decimal(10,2)
+}
