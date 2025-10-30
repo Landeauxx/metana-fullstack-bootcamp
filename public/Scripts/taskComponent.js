@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const completeAllBtn = document.getElementById('complete-all-btn');
   const toggleCompletedBtn = document.getElementById('toggle-completed-btn');
 
-  if (!taskList || !editModal || !editTitleInput || !editTimeInput || !saveEditBtn || !modalOverlay) return;
+  if (!taskList || !completedList || !editModal || !editTitleInput || !editTimeInput || !saveEditBtn || !modalOverlay) return;
 
   let editingIndex = null;
   let showCompleted = false;
@@ -29,15 +29,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const closeModal = (modalId) => {
     document.getElementById(modalId)?.classList.remove('active');
-    modalOverlay.classList.remove('active');
+    if (!document.querySelector('.modal.active')) {
+      modalOverlay.classList.remove('active');
+    }
   };
 
-  const loadTasks = () => {
+  const emitTasksUpdated = () => window.dispatchEvent(new Event('tasksUpdated'));
+
+  const getTasks = () => {
     let tasks = JSON.parse(localStorage.getItem('tasks'));
     if (!Array.isArray(tasks)) {
       tasks = defaultTasks;
       localStorage.setItem('tasks', JSON.stringify(tasks));
     }
+    return tasks;
+  };
+
+  const setTasks = (tasks) => {
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+    emitTasksUpdated();
+    loadTasks();
+  };
+
+  const loadTasks = () => {
+    const tasks = getTasks();
 
     taskList.innerHTML = '';
     completedList.innerHTML = '';
@@ -50,13 +65,13 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    incompleteTasks.forEach((task, index) => {
-      const actualIndex = tasks.findIndex(t => t.title === task.title && t.time === task.time);
+    incompleteTasks.forEach(task => {
+      const actualIndex = tasks.findIndex(t => t.title === task.title && t.time === task.time && t.duration === task.duration && t.completed === task.completed);
       taskList.appendChild(createTaskCard(task, actualIndex, false));
     });
 
-    completedTasks.forEach((task, index) => {
-      const actualIndex = tasks.findIndex(t => t.title === task.title && t.time === task.time);
+    completedTasks.forEach(task => {
+      const actualIndex = tasks.findIndex(t => t.title === task.title && t.time === task.time && t.duration === task.duration && t.completed === task.completed);
       completedList.appendChild(createTaskCard(task, actualIndex, true));
     });
 
@@ -74,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const time = document.createElement('p');
     const [hour, minute] = task.time.split(':');
-    const h = parseInt(hour);
+    const h = parseInt(hour, 10);
     const ampm = h >= 12 ? 'PM' : 'AM';
     const displayHour = h % 12 || 12;
     time.textContent = `${displayHour}:${minute} ${ampm}`;
@@ -113,8 +128,9 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const openEditModal = (index) => {
-    const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    const tasks = getTasks();
     const task = tasks[index];
+    if (!task) return;
     editingIndex = index;
     editTitleInput.value = task.title;
     editTimeInput.value = task.time;
@@ -122,25 +138,40 @@ document.addEventListener('DOMContentLoaded', () => {
     openModal('editTaskModal');
   };
 
+  // CRUD ops
+  const completeTask = (index) => {
+    const tasks = getTasks();
+    if (!tasks[index]) return;
+    tasks[index].completed = true;
+    setTasks(tasks);
+  };
+
+  const deleteTask = (index) => {
+    const tasks = getTasks();
+    tasks.splice(index, 1);
+    setTasks(tasks);
+  };
+
   saveEditBtn.addEventListener('click', (e) => {
     e.preventDefault();
     const newTitle = editTitleInput.value.trim();
     const newTime = editTimeInput.value;
-    const newDuration = parseInt(editDurationInput.value);
+    const newDuration = parseInt(editDurationInput.value, 10);
     if (!newTitle || !newTime || !newDuration) {
       alert('Please enter all fields.');
       return;
     }
 
-    const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    const tasks = getTasks();
+    if (!tasks[editingIndex]) return;
+
     tasks[editingIndex] = {
       title: newTitle,
       time: newTime,
       duration: newDuration,
       completed: tasks[editingIndex].completed
     };
-    localStorage.setItem('tasks', JSON.stringify(tasks));
-    loadTasks();
+    setTasks(tasks);
     closeModal('editTaskModal');
   });
 
@@ -148,33 +179,21 @@ document.addEventListener('DOMContentLoaded', () => {
     closeModal('editTaskModal');
   });
 
-  const completeTask = (index) => {
-    const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-    tasks[index].completed = true;
-    localStorage.setItem('tasks', JSON.stringify(tasks));
-    loadTasks();
-  };
-
-  const deleteTask = (index) => {
-    const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-    tasks.splice(index, 1);
-    localStorage.setItem('tasks', JSON.stringify(tasks));
-    loadTasks();
-  };
-
-  completeAllBtn.addEventListener('click', () => {
-    const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+  completeAllBtn?.addEventListener('click', () => {
+    const tasks = getTasks();
     tasks.forEach(task => task.completed = true);
-    localStorage.setItem('tasks', JSON.stringify(tasks));
-    loadTasks();
+    setTasks(tasks);
   });
 
-  toggleCompletedBtn.addEventListener('click', () => {
+  toggleCompletedBtn?.addEventListener('click', () => {
     showCompleted = !showCompleted;
-    completedSection.style.display = showCompleted ? 'block' : 'none';
-    toggleCompletedBtn.textContent = showCompleted ? 'Hide Completed' : 'Show Completed';
+    if (completedSection) completedSection.style.display = showCompleted ? 'block' : 'none';
+    if (toggleCompletedBtn) toggleCompletedBtn.textContent = showCompleted ? 'Hide Completed' : 'Show Completed';
+  });
+
+  window.addEventListener('tasksUpdated', () => {
+    loadTasks();
   });
 
   loadTasks();
-  window.addEventListener('tasksUpdated', loadTasks);
 });

@@ -1,27 +1,34 @@
-// public/Scripts/suggestedTaskComponent.js
 (() => {
   console.log('suggestedTaskComponent.js loaded (mood + weather + mode)');
 
   const panel = document.querySelector('.suggested-panel');
   if (!panel) return;
 
-  // -------- UI: mode selector --------
+  // -------- mode selector --------
   const modeSel = document.getElementById('suggest-mode');
-  // restore saved mode
   const savedMode = localStorage.getItem('suggestMode') || 'auto';
   if (modeSel) modeSel.value = savedMode;
-
   modeSel?.addEventListener('change', () => {
     localStorage.setItem('suggestMode', modeSel.value);
     update();
   });
 
-  // -------- helpers --------
+  // -------- cookie helpers --------
+  function getCookie(name) {
+    const cookies = document.cookie.split('; ');
+    for (const c of cookies) {
+      const [k, v] = c.split('=');
+      if (decodeURIComponent(k) === name) return decodeURIComponent(v || '');
+    }
+    return null;
+  }
+
   const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
   const cap = s => (s || '').replace(/\b\w/g, m => m.toUpperCase());
 
   function readMoodLevel() {
-    const raw = Number(localStorage.getItem('moodValue'));
+    const src = getCookie('moodValue');
+    const raw = Number(src);
     const val = Number.isFinite(raw) ? clamp(raw, 0, 100) : 60;
     if (val < 34) return { level: 'low', emoji: '😞', label: 'Low' };
     if (val < 67) return { level: 'medium', emoji: '😐', label: 'Medium' };
@@ -58,7 +65,6 @@
       // Mode override
       const mode = (modeSel?.value || 'auto').toLowerCase();
       if (mode !== 'auto') {
-        // zero-out then set flags by mode
         Object.assign(w, { wet:false, sunny:false, hot:false, cold:false, windy:false });
         if (mode === 'sunny') { w.sunny = true; w.icon = '☀️'; w.outdoorOk = true; }
         if (mode === 'rainy') { w.wet = true; w.icon = '🌧️'; w.outdoorOk = false; }
@@ -220,6 +226,9 @@
       if (t && t !== lastWeatherTime) { lastWeatherTime = t; update(); }
     }catch{}
   }, 15000);
+
+  window.addEventListener('tasksUpdated', update);
+  window.addEventListener('moodUpdated', update);
 
   update();
 })();
