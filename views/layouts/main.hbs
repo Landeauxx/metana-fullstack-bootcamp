@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>{{title}}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="stylesheet" href="/Styles/index.css" />
+  <link rel="stylesheet" href="/Styles/taskComponent.css" />
+  <link rel="stylesheet" href="/Styles/suggestedTaskComponent.css" />
+  <link rel="stylesheet" href="/Styles/taskCreationForm.css" />
+  <link rel="stylesheet" href="/Styles/moodSelector.css" />
+  <link rel="stylesheet" href="/Styles/loginForm.css" />
+</head>
+<body>
+  <div id="main-app">
+    {{> header}}
+    {{{body}}}
+    {{> footer}}
+    {{> modals}}
+  </div>
+
+  <div class="modal-overlay"></div>
+
+  <!-- Scripts -->
+  <script src="/Scripts/loginForm.js"></script>
+  <script src="/Scripts/moodSelector.js"></script>
+  <script src="/Scripts/taskComponent.js"></script>
+  <script src="/Scripts/taskCreationForm.js"></script>
+  <script src="/Scripts/suggestedTaskComponent.js"></script>
+  <script src="/Scripts/index.js"></script>
+</body>
+</html>

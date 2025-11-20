@@ -1,0 +1,21 @@
+/* Login modal */
+.login-modal{
+  max-width:420px;
+}
+
+.login-title{ margin:.25rem 0 }
+.login-sub{ margin:.15rem 0 1rem; color:var(--ink-muted) }
+
+.login-form{
+  display:grid;
+  gap:.65rem;
+}
+
+.login-form input{
+  width:100%;
+  padding:.65rem .75rem;
+  border-radius:10px;
+  border:1px solid var(--line);
+  background:#171827;
+  color:var(--ink);
+}

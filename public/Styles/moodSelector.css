@@ -1,0 +1,27 @@
+/* Mood modal */
+.mood-modal .modal-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:.5rem;
+}
+.mood-modal .modal-content{
+  max-width: 640px; 
+}
+
+.mood-guides{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+  column-gap: clamp(2rem, 12vw, 8rem);  /* big responsive spacing */
+  margin: .25rem 0 .75rem;
+  font-size: 1.4rem;
+  opacity: .9;
+}
+.mood-guides span{ display:block; text-align:center; }
+.mood-slider-wrap{ margin:1rem 0 }
+.mood-range{
+  width:100%;
+  accent-color:var(--brand);
+}
+.mood-chip .mood-emoji{ margin-left:.25rem }
