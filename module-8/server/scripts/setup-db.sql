@@ -1,0 +1,35 @@
+CREATE EXTENSION IF NOT EXISTS pgcrypto; -- for gen_random_uuid()
+
+CREATE TABLE IF NOT EXISTS users (
+id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+name TEXT NOT NULL,
+email TEXT UNIQUE NOT NULL,
+created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS blogs (
+id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+title TEXT NOT NULL,
+body TEXT NOT NULL,
+published BOOLEAN NOT NULL DEFAULT false,
+created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS idx_blogs_user_id ON blogs(user_id);
+
+CREATE OR REPLACE FUNCTION set_updated_at()
+RETURNS TRIGGER AS $$
+BEGIN
+NEW.updated_at = NOW();
+RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+
+DROP TRIGGER IF EXISTS blogs_set_updated_at ON blogs;
+CREATE TRIGGER blogs_set_updated_at
+BEFORE UPDATE ON blogs
+FOR EACH ROW
+EXECUTE FUNCTION set_updated_at();

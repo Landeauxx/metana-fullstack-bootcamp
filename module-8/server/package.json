@@ -1,0 +1,24 @@
+{
+  "name": "module-6-postgres-backend",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "db:init": "node scripts/initDb.js",
+    "db:seed": "node scripts/seedDb.js",
+    "build:frontend": "cd ../client && npm run build",
+    "prod": "NODE_ENV=production node index.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "morgan": "^1.10.0",
+    "pg": "^8.23.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
